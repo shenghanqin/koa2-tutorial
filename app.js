@@ -9,14 +9,14 @@ const BodyParser = require('koa-bodyparser')
 
 
 const router = require("./route")
-const middleware = require('./middleware')
+// const middleware = require('./middleware')
 
 
 const nunjucksEnvironment = new nunjucks.Environment(
   new nunjucks.FileSystemLoader(path.join(__dirname, './views'))
 )
 
-middleware(app)
+// middleware(app)
 
 app.use(views(path.join(__dirname, '/views'), {
   options: {
