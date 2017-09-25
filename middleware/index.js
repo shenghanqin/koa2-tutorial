@@ -3,7 +3,8 @@ const ip = require("ip")
 
 const miLog = require('./mi-log')
 const miHttpError = require('./mi-http-error')
-// const miSend = require('./mi-send')
+const miSend = require('./mi-send')
+// const miRule = require('./mi-rule')
 
 module.exports = (app) => {
 
@@ -36,7 +37,11 @@ module.exports = (app) => {
   }));
 
   // 增加 send json
-  // app.use(miSend())
+  app.use(miSend())
+
+  // add rule middleware
+  // app.use(miRule(path.resolve(__dirname, '../service'), "service"))
+  // app.use(miRule(path.resolve(__dirname, '../controller'), "controller"))
 
   app.on("error", (err, ctx) => {
     if (ctx && !ctx.headerSent && ctx.status < 500) {
