@@ -4,7 +4,10 @@ const ip = require("ip")
 const miLog = require('./mi-log')
 const miHttpError = require('./mi-http-error')
 const miSend = require('./mi-send')
+
+// 增加的代码 start
 // const miRule = require('./mi-rule')
+// 增加的代码 end
 
 module.exports = (app) => {
 
@@ -36,12 +39,12 @@ module.exports = (app) => {
     serverIp: ip.address()
   }));
 
-  // 增加 send json
   app.use(miSend())
 
-  // add rule middleware
+  // 增加的代码 start 
   // app.use(miRule(path.resolve(__dirname, '../service'), "service"))
   // app.use(miRule(path.resolve(__dirname, '../controller'), "controller"))
+  // 增加的代码 end
 
   app.on("error", (err, ctx) => {
     if (ctx && !ctx.headerSent && ctx.status < 500) {

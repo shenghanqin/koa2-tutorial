@@ -30,7 +30,14 @@ app.use(staticFiles(path.resolve(__dirname, "./public")))
 
 app.use(BodyParser())
 app.use(Router.routes()).use(Router.allowedMethods())
+
+// 改动点 start 
 router(Router)
+// app.use(async (ctx, next)=>{
+//   router(ctx, Router)
+//   await next()
+// })
+// 改动点 start 
 
 app.listen(3000)
 console.log(`app started at port 3000...`);

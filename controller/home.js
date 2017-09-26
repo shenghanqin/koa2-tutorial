@@ -1,4 +1,6 @@
+// 改动点 start 
 const HomeService = require("../service/home")
+// 改动点 end 
 module.exports = {
   index: async function (ctx, next) {
     ctx.state.title = "欢迎进入iKcamp"
@@ -12,7 +14,12 @@ module.exports = {
     let params = ctx.request.body
     let name = params.name
     let password = params.password
+
+    // 改动点 start 
     let res = await HomeService.register(name,password)
+    // let res = await ctx.service.home.register(name,password)
+    // 改动点 end
+
     if(res.status == "-1"){
       await ctx.render("./home/login.html", res.data)
     }else{
