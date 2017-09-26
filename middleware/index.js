@@ -10,7 +10,10 @@ const miLog = require('./mi-log')
 const miHttpError = require('./mi-http-error')
 const miSend = require('./mi-send')
 const miRule = require('./mi-rule')
+
+// 增加的代码 start 
 const miInit = require('./mi-init')
+// 增加的代码 end
 
 const nunjucksEnvironment = new nunjucks.Environment(
   new nunjucks.FileSystemLoader(path.join(__dirname, '../views'))
@@ -55,18 +58,15 @@ module.exports = (app) => {
     }
   }))
   app.use(staticFiles(path.resolve(__dirname, "../public")))
-  
   app.use(BodyParser())
-
-  // 增加 send json
   app.use(miSend())
-
-  // add rule middleware
   app.use(miRule(path.resolve(__dirname, '../service'), "service"))
   app.use(miRule(path.resolve(__dirname, '../controller'), "controller"))
 
+  // 增加的代码 start
   app.use(miInit())
-  
+  // 增加的代码 end
+
   app.on("error", (err, ctx) => {
     if (ctx && !ctx.headerSent && ctx.status < 500) {
       ctx.status = 500
